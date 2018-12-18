@@ -1,0 +1,15 @@
+C90 Compiler and Translator
+
+I've taken out all the work that was done by my partner besides some of the test_deliverables, which were made together. The two scripts were also written together for testing the compiler and translator functionality
+With regards to the functionality, it’s a C90 compiler, which uses Flex and Bison to create a parser for a C90 grammar, which was designed entirely by myself. I investigated all the simple inputs and any obvious punctuations that was going to be used, the grammar was developed further as we moved up in the levels of complexity and these two worked well with C++
+Initially, once we got the basic parsing working adapted the scripts, we then started to design our parse tree and we decided to go with a binary tree approach, whereby each parent would have exactly two children. This made traversing the tree much easier and simpler to implement.  
+The key was being able to identify a list of statements (if, while, if else etc) and we did this by creating a list using the binary tree to each node would have one statement of the tree to the left and the rest of the statements to the right, eventually going down to the last statement (usually a return)
+We experimented with how certain functions look in MIPS 8000 and how we would be able to compile them. We had to create a stack of registers to represent the architecture and create logic to be able to assign registers effectively so that it could represent assembly language correctly. We had functions testing the capability of checking if registers are free, assigning them and de-assigning them. (include/context.hpp)
+We had to decide how we were going to separate out the grammar ad how we going to split up the statements into different types. (include/ast/ast_statement and (include/ast/ast_declaration)) We split up all the mathematical expressions and operations with regards to the maths (include/ast/ast_operators)
+The whole parse tree is based on an inheritance hierarchy, from node to (statement, declaration, parameter, program and expression) and these branches down to smaller thing like primitives, functions etc. All of these contain 3 virtual functions each declared for their specific use. Functions are translate (Translator Functionality), print_mips (Compiler Functionality) and print (prints the parse tree to show what has been declared)
+There should be tree files in the bin folder ready to be executed, which take input of C and build them out into mips, based of the functionality we managed to achieve, which can we be seen in the parser ( src/maths_parser.y)
+
+The compiler is able to process all conditional statements (if, if else, else and not)
+It is able to do while loops, do-whlle loops and for loops all correctly
+It Is able to do function calls, variables allocation (global and local) and all common types (int, bool, char)
+The compiler has basic array creation as well, but feature needs more development
